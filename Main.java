@@ -2,31 +2,45 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        System.out.println("How long until you need to feed your fish?");
         Scanner scnr = new Scanner(System.in);
-        System.out.println("Welcome User, Please Type How Many Gallons Your Aquarium Display Holds");
-        double gallons = scnr.nextDouble();
-        int newGallons = (int) Math.round(gallons); //Round Gallons
-        System.out.println("Great so you have about " + newGallons + " gallons.");
-        System.out.println("How much fish do you have now?");
-        int currentFish = scnr.nextInt();
-        System.out.println("How much fish do you plan to add?");
-        int plannedFish = scnr.nextInt();
-        System.out.println("Assuming every fish requires at least 3 gallons of space:");
-        boolean answer = GPF(newGallons, (currentFish+ plannedFish));
-        if (answer){
-            System.out.println("Perfect! " + newGallons + " is perfect for " + (currentFish+ plannedFish) + " fish!");
-        }else{
-            System.out.println("Sadly, " + newGallons + " gallons would not be enough for " + (currentFish+ plannedFish) + " fish!");
+        System.out.print("Hours: ");
+        int hours = scnr.nextInt();
+        System.out.print("\nMinutes: ");
+        int minutes = scnr.nextInt();
+        System.out.print("\nSeconds: ");
+        int seconds = scnr.nextInt();
+        Timer(hours, minutes, seconds);
+    }
+
+    static void Timer(int hours, int minutes, int seconds) {
+        while (hours > 0 || minutes > 0 || seconds > 0) {
+
+            System.out.println(hours + "h " + minutes + "m " + seconds + "s");
+
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            seconds--;
+
+            if (seconds < 0) {
+                seconds = 59;
+                minutes--;
+            }
+
+            if (minutes < 0) {
+                minutes = 59;
+                hours--;
+            }
         }
 
+        System.out.println("Timer finished! It is time to feed your fish!");
+
+
+        }
     }
 
-    static boolean GPF(int gallons, int fish){
-         if ((fish*3) > gallons) {
-             return false;
-        } else {
-             return true;
-         }
-    }
-}
 
